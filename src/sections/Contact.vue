@@ -128,12 +128,7 @@
 <script setup>
 import { ref } from 'vue';
 
-// ============================================
-// TODO: Replace with YOUR Formspree form ID
-// Go to https://formspree.io → create a form → copy the endpoint
-// Example: https://formspree.io/f/xyzabcde
-// ============================================
-const formspreeUrl = 'https://formspree.io/f/YOUR_FORM_ID';
+const formspreeUrl = 'https://formspree.io/f/mvzdardl';
 
 const form = ref({ name: '', email: '', message: '' });
 const errors = ref({ name: '', email: '', message: '' });
