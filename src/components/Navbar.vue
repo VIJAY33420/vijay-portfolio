@@ -399,18 +399,22 @@ const resumeLinks = {
 
 const sections = computed(() => [
   { id: "about", label: t("nav.about") },
-  { id: "projects", label: t("nav.projects"), targetId: "statement" },
+  { id: "skills", label: t("nav.skills") },
+  { id: "projects", label: t("nav.projects"), targetId: "projects" },
   { id: "hackathon", label: t("nav.hackathon") },
   { id: "certificates", label: t("nav.certificates") },
+  { id: "achievements", label: "Achievements" },
   { id: "contact", label: t("nav.contact") },
 ]);
 
 const mobileSections = computed(() => [
   { id: "home", label: t("nav.home"), targetId: "home" },
   { id: "about", label: t("nav.about"), targetId: "about" },
-  { id: "projects", label: t("nav.projects"), targetId: "statement" },
+  { id: "skills", label: t("nav.skills"), targetId: "skills" },
+  { id: "projects", label: t("nav.projects"), targetId: "projects" },
   { id: "hackathon", label: t("nav.hackathon"), targetId: "hackathon" },
   { id: "certificates", label: t("nav.certificates"), targetId: "certificates" },
+  { id: "achievements", label: "Achievements", targetId: "achievements" },
   { id: "contact", label: t("nav.contact"), targetId: "contact" },
 ]);
 

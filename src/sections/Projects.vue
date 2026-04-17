@@ -1,640 +1,280 @@
 <template>
-  <section
-    id="projects"
-    ref="projectsSection"
-    class="projects-section relative max-w-300 mx-auto py-8 pb-20 mb-24 md:mb-32 px-[clamp(1rem,5vw,4rem)]"
-  >
-    <div
-      ref="imagePreview"
-      class="project-image-preview absolute w-80 h-65 rounded-lg overflow-hidden opacity-0 pointer-events-none z-100"
-      :class="{ 'is-visible': hoveredIndex !== null }"
-    >
-      <img
-        v-for="(project, index) in projects"
-        :key="project.id"
-        :src="project.image"
-        :alt="project.title"
-        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-400"
-        :class="{ 'is-active': hoveredIndex === index }"
-        :width="project.width"
-        :height="project.height"
-        loading="lazy"
-        decoding="async"
-      />
-    </div>
+  <section id="projects" class="relative px-5 lg:px-28 py-32 overflow-hidden">
+    <div class="absolute top-0 left-0 w-[500px] h-[500px] bg-cyan-500/5 rounded-full blur-[120px] -z-10"></div>
+    <div class="absolute bottom-1/3 right-0 w-[400px] h-[400px] bg-[rgba(224,172,105,0.04)] rounded-full blur-[100px] -z-10"></div>
 
-    <div class="flex flex-col" @mousemove="handleListMouseMove" @mouseleave="handleListLeave">
-      <article
-        v-for="(project, index) in projects"
-        :key="project.id"
-        class="project-item flex items-start gap-[0.2rem] pb-[0.2em] -mt-[2.2rem] -mb-[0.2em] border-b border-(--project-border-color) relative overflow-visible cursor-pointer"
-        :class="{ 'project-item-first': index === 0, 'is-hovered': hoveredIndex === index }"
-        ref="projectItems"
-        role="link"
-        tabindex="0"
-        @click="goToProject(project)"
-        @keydown.enter.prevent="goToProject(project)"
-        @keydown.space.prevent="goToProject(project)"
-      >
-        <div class="flex-1 mt-0">
-          <div class="project-mobile-image hidden w-full rounded-[10px] overflow-hidden mb-5 bg-(--project-image-overlay)" aria-hidden="true">
+    <div class="mx-auto w-full max-w-7xl">
+      <!-- Header -->
+      <div class="mb-16 space-y-4 text-center lg:text-left">
+        <span class="inline-block px-6 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-black tracking-widest uppercase mb-4">
+          Portfolio
+        </span>
+        <h2 class="text-5xl lg:text-8xl font-black tracking-tighter text-[var(--theme-text-strong)] uppercase leading-[0.9]">
+          My <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Projects</span>
+        </h2>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex flex-wrap gap-3 mb-12">
+        <button
+          v-for="tab in tabs"
+          :key="tab.key"
+          @click="activeTab = tab.key"
+          class="px-5 py-2.5 rounded-full text-sm font-bold tracking-wider uppercase transition-all duration-300 cursor-pointer border"
+          :class="activeTab === tab.key
+            ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white border-transparent shadow-lg shadow-cyan-500/25'
+            : 'bg-white/5 text-[var(--theme-text-muted)] border-white/10 hover:bg-white/10 hover:text-[var(--theme-text-strong)]'"
+        >
+          {{ tab.label }}
+        </button>
+      </div>
+
+      <!-- Project Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div
+          v-for="project in filteredProjects"
+          :key="project.id"
+          class="project-card group relative rounded-3xl overflow-hidden border border-white/10 bg-slate-900/60 backdrop-blur-xl transition-all duration-500 hover:-translate-y-3 hover:border-cyan-500/30"
+        >
+          <!-- Image Preview -->
+          <div class="relative h-52 overflow-hidden bg-slate-800">
             <img
-              :src="project.imageMobile"
+              :src="project.image"
               :alt="project.title"
-              class="block w-full h-auto object-cover"
-              :width="project.width"
-              :height="project.height"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               loading="lazy"
-              decoding="async"
             />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+            <span class="absolute top-4 left-4 px-3 py-1 rounded-full bg-black/60 backdrop-blur-sm text-[10px] font-black tracking-widest text-cyan-400 uppercase border border-cyan-500/20">
+              {{ project.category }}
+            </span>
           </div>
-          <h3 class="project-title inline-block m-0 font-bold leading-[1.05] tracking-tight cursor-pointer text-(--project-title-color)">
-            <span class="inline-flex items-center gap-0">
-              <span class="project-index-mobile font-medium text-(--theme-text-muted) leading-none">_{{ String(index + 1).padStart(2, '0') }}.</span>
-              <span class="project-index font-medium text-(--theme-text-muted) leading-none">_{{ String(index + 1).padStart(2, '0') }}.</span>
-              <span class="project-title-text inline-block shrink-0 w-fit relative pb-[0.22em] text-(--project-title-color)">
-                <span class="project-title-base inline-block pb-[0.15em]">{{ project.title }}</span>
-                <span ref="titleAnimEls" class="project-title-anim absolute top-0 left-0 w-full inline-block pb-[0.22em] pointer-events-none" aria-hidden="true">{{ project.title }}</span>
+
+          <!-- Content -->
+          <div class="p-6 space-y-4">
+            <h3 class="text-xl font-black text-[var(--theme-text-strong)] group-hover:text-cyan-400 transition-colors leading-tight">
+              {{ project.title }}
+            </h3>
+            <p class="text-sm text-[var(--theme-text-muted)] leading-relaxed font-['Oxanium'] line-clamp-3">
+              {{ project.description }}
+            </p>
+
+            <!-- Tech tags -->
+            <div class="flex flex-wrap gap-2">
+              <span
+                v-for="tag in project.tags"
+                :key="tag"
+                class="px-2.5 py-1 rounded-md bg-white/5 text-[10px] font-bold tracking-wider text-[var(--theme-text-soft)] uppercase border border-white/5"
+              >
+                {{ tag }}
               </span>
-              <span ref="lottieEls" class="project-title-lottie w-[3em] h-[3em] pointer-events-none opacity-0 -ml-[0.7em]" aria-hidden="true"></span>
-            </span>
-          </h3>
-          <div class="project-tags flex flex-wrap gap-4 items-center -mt-16 pb-4 max-md:-mt-7">
-            <span
-              v-for="(tag, tagIndex) in project.tags"
-              :key="tagIndex"
-              class="project-tag relative text-(--project-meta-color)"
-            >
-              {{ tag }}
-            </span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="pt-2 flex items-center gap-3 flex-wrap">
+              <a
+                v-if="project.github"
+                :href="project.github"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="action-btn"
+              >
+                <i class="bi bi-github"></i> Code
+              </a>
+              <a
+                v-if="project.demo"
+                :href="project.demo"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="action-btn action-btn--primary"
+              >
+                <i class="bi bi-box-arrow-up-right"></i> Live
+              </a>
+              <a
+                v-if="project.youtube"
+                :href="project.youtube"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="action-btn action-btn--youtube"
+              >
+                <i class="bi bi-youtube"></i> Demo
+              </a>
+            </div>
           </div>
         </div>
-      </article>
+      </div>
     </div>
   </section>
 </template>
 
 <script setup>
-import { computed, inject, nextTick, onMounted, onUnmounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useI18n } from 'vue-i18n';
+import { ref, computed } from 'vue';
 import progress1Img from '@/assets/progress1.jpg';
-import progress1ImgSmall from '@/assets/progress1-1280.jpg';
 
-const { t } = useI18n();
-const router = useRouter();
-const startPageTransition = inject('startPageTransition', null);
-const projectsSection = ref(null);
-const projectItems = ref([]);
-const titleAnimEls = ref([]);
-const lottieEls = ref([]);
-const imagePreview = ref(null);
-const hoveredIndex = ref(null);
+const activeTab = ref('all');
 
-const lottieAnims = [];
-const lottieEndHandlers = [];
-const lottieTimers = [];
-const lottieStarted = [];
-const lottieHoldFrames = [];
-let lottieLib = null;
-let lottieMediaQuery = null;
-let lottieMediaHandler = null;
-let threadLineDownRightAnim = null;
-const resetTitleAnim = (index) => {
-  const animEl = titleAnimEls.value[index];
-  if (!animEl) return;
-  animEl.classList.add('is-resetting');
-  animEl.style.backgroundSize = '0% 100%';
-  // Force reflow to apply the no-transition state immediately.
-  void animEl.offsetHeight;
-  animEl.classList.remove('is-resetting');
-  animEl.style.removeProperty('background-size');
-};
+const tabs = [
+  { key: 'all', label: 'All' },
+  { key: 'fullstack', label: 'Full Stack' },
+  { key: 'frontend', label: 'Frontend' },
+  { key: 'clones', label: 'Clones' },
+  { key: 'games', label: 'Games' },
+];
 
-const projects = computed(() => [
+const projects = [
   {
     id: 1,
-    title: t('projects.fixitnow'),
-    tags: [t('projects.fixitnowSubtitle')],
+    title: 'FixItNow',
+    category: 'Full Stack',
+    filterKey: 'fullstack',
+    description: 'A full-stack local repair service booking platform connecting users with expert technicians for electronic and home appliance repairs. Built with MERN stack.',
+    tags: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind'],
     image: progress1Img,
-    imageMobile: progress1ImgSmall,
-    width: 4500,
-    height: 4500
+    github: 'https://github.com/VIJAY33420',
+    demo: '#', // TODO: Add your live demo URL
+    youtube: '', // TODO: Add YouTube demo URL if available
   },
   {
     id: 2,
-    title: t('projects.aiHackathon'),
-    tags: [t('projects.aiHackathonSubtitle')],
-    image: progress1Img, // Reusing for placeholder
-    imageMobile: progress1ImgSmall,
-    width: 4500,
-    height: 4500
-  }
-]);
+    title: 'Art Park AI Build',
+    category: 'Full Stack',
+    filterKey: 'fullstack',
+    description: 'An intensive 48-hour hackathon project focused on building AI-driven solutions for real-world urban challenges at IISc Bangalore.',
+    tags: ['React', 'Node.js', 'AI/ML', 'MongoDB'],
+    image: progress1Img,
+    github: 'https://github.com/VIJAY33420',
+    demo: '',
+    youtube: '',
+  },
+  {
+    id: 3,
+    title: 'Portfolio Website',
+    category: 'Frontend',
+    filterKey: 'frontend',
+    description: 'A premium personal portfolio built with Vue 3, Tailwind CSS, and GSAP featuring glassmorphic design, dark/light theme, and smooth scroll animations.',
+    tags: ['Vue 3', 'Tailwind', 'GSAP', 'Vite'],
+    image: progress1Img,
+    github: 'https://github.com/VIJAY33420/vijay-portfolio',
+    demo: 'https://vijaydiwaniya-portfolio.vercel.app/',
+    youtube: '',
+  },
+  {
+    id: 4,
+    title: 'Netflix Clone',
+    category: 'Clones',
+    filterKey: 'clones',
+    description: 'A pixel-perfect Netflix UI clone featuring responsive design, dynamic content sections, and smooth hover animations.',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    image: progress1Img,
+    github: 'https://github.com/VIJAY33420', // TODO: Update with actual repo
+    demo: '', // TODO: Add live demo URL
+    youtube: '',
+  },
+  {
+    id: 5,
+    title: 'Tic-Tac-Toe',
+    category: 'Games',
+    filterKey: 'games',
+    description: 'An interactive Tic-Tac-Toe game with clean UI, win detection logic, score tracking, and responsive design.',
+    tags: ['HTML', 'CSS', 'JavaScript'],
+    image: progress1Img,
+    github: 'https://github.com/VIJAY33420', // TODO: Update with actual repo
+    demo: '', // TODO: Add live demo URL
+    youtube: '',
+  },
+  {
+    id: 6,
+    title: 'Weather App',
+    category: 'Frontend',
+    filterKey: 'frontend',
+    description: 'A real-time weather application fetching live data from OpenWeatherMap API with beautiful UI and location search.',
+    tags: ['React', 'API', 'CSS', 'Axios'],
+    image: progress1Img,
+    github: 'https://github.com/VIJAY33420', // TODO: Update with actual repo
+    demo: '', // TODO: Add live demo URL
+    youtube: '',
+  },
+];
 
-let projectsTimeline = null;
-
-const destroyLottie = () => {
-  lottieTimers.forEach((timer) => window.clearTimeout(timer));
-  lottieTimers.length = 0;
-  lottieAnims.forEach((anim, index) => {
-    const animEl = titleAnimEls.value[index];
-    if (animEl && lottieEndHandlers[index]) {
-      animEl.removeEventListener('transitionend', lottieEndHandlers[index]);
-    }
-    anim?.destroy();
-  });
-  lottieAnims.length = 0;
-  lottieEndHandlers.length = 0;
-  lottieStarted.length = 0;
-  lottieHoldFrames.length = 0;
-  lottieEls.value.forEach((el) => el?.classList.remove('is-playing'));
-};
-
-const initLottie = async () => {
-  if (window.matchMedia('(max-width: 768px)').matches) return;
-  if (lottieAnims.length) return;
-  if (!lottieLib) {
-    const module = await import('lottie-web');
-    lottieLib = module?.default ?? module;
-  }
-  if (!threadLineDownRightAnim) {
-    const module = await import('@/assets/lottie/thread-line-down-right.json');
-    threadLineDownRightAnim = module?.default ?? module;
-  }
-  await nextTick();
-  lottieEls.value.forEach((el, index) => {
-    if (!el) return;
-    const anim = lottieLib.loadAnimation({
-      container: el,
-      renderer: 'svg',
-      loop: false,
-      autoplay: false,
-      animationData: threadLineDownRightAnim
-    });
-    anim.setSpeed(1);
-    const totalFrames = Math.max(anim.getDuration(true), 1);
-    lottieHoldFrames[index] = Math.max(Math.floor(totalFrames * 0.85), 1);
-    lottieAnims[index] = anim;
-  });
-};
-
-const handleListMouseMove = (event) => {
-  if (!projectItems.value.length) return;
-
-  const mouseY = event.clientY;
-  let targetIndex = null;
-
-  for (let i = 0; i < projectItems.value.length; i++) {
-    const item = projectItems.value[i];
-    if (!item) continue;
-    const rect = item.getBoundingClientRect();
-    const dividerY = rect.bottom;
-
-    if (i === 0) {
-      if (mouseY >= rect.top && mouseY < dividerY) {
-        targetIndex = 0;
-        break;
-      }
-    } else {
-      const prevItem = projectItems.value[i - 1];
-      const prevDividerY = prevItem.getBoundingClientRect().bottom;
-
-      if (mouseY >= prevDividerY && (i === projectItems.value.length - 1 || mouseY < dividerY)) {
-        targetIndex = i;
-        break;
-      }
-    }
-  }
-
-  if (targetIndex !== null && targetIndex !== hoveredIndex.value) {
-    handleTitleEnter(targetIndex);
-  }
-};
-
-const handleTitleEnter = (index) => {
-  const prevIndex = hoveredIndex.value;
-  hoveredIndex.value = index;
-
-  if (imagePreview.value && projectItems.value[index]) {
-    const item = projectItems.value[index];
-    const itemRect = item.getBoundingClientRect();
-    const sectionRect = projectsSection.value.getBoundingClientRect();
-    const topOffset = itemRect.top - sectionRect.top + itemRect.height / 2;
-    imagePreview.value.style.top = `${topOffset}px`;
-  }
-
-  if (prevIndex !== null && prevIndex !== index) {
-    resetTitleAnim(prevIndex);
-    const prevAnim = lottieAnims[prevIndex];
-    const prevEl = lottieEls.value[prevIndex];
-    if (prevEl) prevEl.classList.remove('is-playing');
-    if (prevAnim) {
-      prevAnim.stop();
-      prevAnim.goToAndStop(0, true);
-    }
-  }
-
-  const anim = lottieAnims[index];
-  const el = lottieEls.value[index];
-  const animEl = titleAnimEls.value[index];
-  if (!anim || !animEl) return;
-  lottieStarted[index] = false;
-  if (el) el.classList.add('is-playing');
-
-  if (lottieEndHandlers[index]) {
-    animEl.removeEventListener('transitionend', lottieEndHandlers[index]);
-  }
-
-  const startAnim = () => {
-    if (lottieStarted[index]) return;
-    lottieStarted[index] = true;
-    const holdFrame = lottieHoldFrames[index] || Math.max(anim.getDuration(true) - 1, 0);
-    anim.playSegments([0, holdFrame], true);
-  };
-
-  const styles = window.getComputedStyle(animEl);
-  const toMs = (value) => {
-    const parsed = parseFloat(value);
-    if (Number.isNaN(parsed)) return 0;
-    return value.includes('ms') ? parsed : parsed * 1000;
-  };
-  const totalDelay = toMs(styles.transitionDuration) + toMs(styles.transitionDelay);
-  const startDelay = totalDelay * 0.35;
-
-  window.clearTimeout(lottieTimers[index]);
-  lottieTimers[index] = window.setTimeout(startAnim, startDelay);
-
-  lottieEndHandlers[index] = (event) => {
-    if (event.propertyName !== 'background-size') return;
-    startAnim();
-  };
-
-  animEl.addEventListener('transitionend', lottieEndHandlers[index], { once: true });
-};
-
-const handleListLeave = () => {
-  const index = hoveredIndex.value;
-  hoveredIndex.value = null;
-
-  if (index === null) return;
-
-  window.clearTimeout(lottieTimers[index]);
-  const anim = lottieAnims[index];
-  const el = lottieEls.value[index];
-  const animEl = titleAnimEls.value[index];
-  resetTitleAnim(index);
-  if (animEl && lottieEndHandlers[index]) {
-    animEl.removeEventListener('transitionend', lottieEndHandlers[index]);
-  }
-  lottieStarted[index] = false;
-  if (el) el.classList.remove('is-playing');
-  if (!anim) return;
-  anim.stop();
-  anim.goToAndStop(0, true);
-};
-
-const goToProject = (project) => {
-  if (!project) return;
-  const fromSection = projectsSection.value?.id || "projects";
-  const navigate = () => {
-    router.push({ name: "project-progress", query: { from: fromSection } });
-  };
-  if (startPageTransition) {
-    startPageTransition(navigate);
-  } else {
-    navigate();
-  }
-};
-
-onMounted(async () => {
-  const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
-    import('gsap'),
-    import('gsap/ScrollTrigger'),
-  ]);
-  gsap.registerPlugin(ScrollTrigger);
-
-  const sectionEl = projectsSection.value;
-  if (!sectionEl) return;
-
-  const items = sectionEl.querySelectorAll('.project-item');
-  if (!items.length) return;
-  const [firstItem, ...restItems] = Array.from(items);
-
-  gsap.set(firstItem, {
-    opacity: 0,
-    y: 60
-  });
-
-  gsap.set(restItems, {
-    opacity: 0,
-    y: 30
-  });
-
-  projectsTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: sectionEl,
-      start: 'top 60%',
-      toggleActions: 'play none none none'
-    }
-  });
-
-  projectsTimeline
-    .to(firstItem, {
-      opacity: 1,
-      y: 0,
-      duration: 0.9,
-      ease: 'power3.out'
-    })
-    .to(restItems, {
-      opacity: 1,
-      y: 0,
-      duration: 0.8,
-      ease: 'power3.out',
-      stagger: 0.15
-    }, '-=0.2');
-
-  lottieMediaQuery = window.matchMedia('(max-width: 768px)');
-  lottieMediaHandler = (event) => {
-    if (event.matches) {
-      destroyLottie();
-    } else {
-      initLottie();
-    }
-  };
-  if (lottieMediaQuery.addEventListener) {
-    lottieMediaQuery.addEventListener('change', lottieMediaHandler);
-  } else {
-    lottieMediaQuery.addListener(lottieMediaHandler);
-  }
-  lottieMediaHandler(lottieMediaQuery);
-});
-
-onUnmounted(() => {
-  if (projectsTimeline) {
-    if (projectsTimeline.scrollTrigger) projectsTimeline.scrollTrigger.kill();
-    projectsTimeline.kill();
-    projectsTimeline = null;
-  }
-
-  if (lottieMediaQuery && lottieMediaHandler) {
-    if (lottieMediaQuery.removeEventListener) {
-      lottieMediaQuery.removeEventListener('change', lottieMediaHandler);
-    } else {
-      lottieMediaQuery.removeListener(lottieMediaHandler);
-    }
-  }
-  destroyLottie();
+const filteredProjects = computed(() => {
+  if (activeTab.value === 'all') return projects;
+  return projects.filter(p => p.filterKey === activeTab.value);
 });
 </script>
 
 <style scoped>
-.projects-section {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.project-card {
+  box-shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.5);
 }
 
-.project-item:nth-child(1) { z-index: 3; }
-.project-item:nth-child(2) { z-index: 2; }
-.project-item:nth-child(3) { z-index: 1; }
-.project-item.is-hovered { z-index: 20; }
-.project-item-first { margin-top: 0; }
-.project-item:last-child { border-bottom: none; }
-
-.project-index {
-  font-size: clamp(0.875rem, 1.5vw, 1rem);
-  width: 4ch;
-  margin-right: 1.2em;
-  transform: translateY(-1.40em);
+.project-card:hover {
+  box-shadow: 0 30px 70px -20px rgba(6, 182, 212, 0.15), 0 20px 60px -20px rgba(0, 0, 0, 0.6);
 }
 
-.project-index-mobile {
-  display: none;
-  font-size: 0.95rem;
-  margin-right: 0.5em;
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--theme-text-soft);
+  transition: all 0.25s ease;
+  text-decoration: none;
 }
 
-.project-title {
-  font-size: clamp(2.5rem, 8vw, 5rem);
-  letter-spacing: -0.02em;
+.action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--theme-text-strong);
+  transform: translateY(-1px);
 }
 
-.project-title-text,
-.project-title-base,
-.project-title-anim {
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-stroke: 0.45px transparent;
-  paint-order: stroke fill;
+.action-btn--primary {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.2));
+  border-color: rgba(6, 182, 212, 0.3);
+  color: #22d3ee;
 }
 
-.project-title-text {
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  isolation: isolate;
+.action-btn--primary:hover {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.4), rgba(59, 130, 246, 0.4));
+  box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
 }
 
-.project-title-base {
-  background: linear-gradient(to bottom, var(--theme-headline-from), var(--theme-headline-via), var(--theme-headline-to));
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+.action-btn--youtube {
+  background: rgba(255, 0, 0, 0.1);
+  border-color: rgba(255, 0, 0, 0.2);
+  color: #ef4444;
 }
 
-.project-title-anim {
-  line-height: inherit;
-  background-image: linear-gradient(90deg, var(--project-hover-color), var(--project-hover-color));
-  background-size: 0% 100%;
-  background-repeat: no-repeat;
-  background-position: left center;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  transition: background-size 0.7s ease;
-  backface-visibility: hidden;
-  will-change: background-size;
+.action-btn--youtube:hover {
+  background: rgba(255, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(255, 0, 0, 0.15);
 }
 
-.project-item:hover .project-title-anim {
-  background-size: 100% 100%;
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
-.project-title-anim.is-resetting {
-  transition: none;
+:global([data-theme="light"]) .project-card {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
-.project-title-lottie {
-  transform: translateY(0.28em);
-  transition: opacity 200ms ease, transform 200ms ease;
-  will-change: opacity, transform;
+:global([data-theme="light"]) .project-card:hover {
+  box-shadow: 0 20px 60px -20px rgba(6, 182, 212, 0.1), 0 10px 30px -10px rgba(0, 0, 0, 0.1);
 }
 
-.project-title-lottie.is-playing {
-  opacity: 1;
-  transform: translateY(0.28em);
-}
-
-.project-title-lottie.is-playing :deep(path) {
-  stroke: var(--project-hover-color) !important;
-  fill: var(--project-hover-color) !important;
-}
-
-.project-title-lottie :deep(svg) {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.project-tags {
-  padding-left: calc(4ch + 1.2em + 0.3em);
-}
-
-.project-tag {
-  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
-}
-
-.project-tag:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: -0.55rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--project-dot-color);
-}
-
-.project-image-preview {
-  right: clamp(1rem, 5vw, 4rem);
-  transform: translateX(1.75rem) translateY(-50%) skewX(-8deg) scale(0.85);
-  transform-origin: right center;
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              top 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.project-image-preview.is-visible {
-  opacity: 1;
-  transform: translateX(1.75rem) translateY(-50%) skewX(-8deg) scale(1);
-}
-
-.project-image-preview img.is-active {
-  opacity: 1;
-}
-
-:global([data-theme="dark"]) {
-  --project-border-color: rgba(255, 255, 255, 0.15);
-  --project-title-color: #f2f0ea;
-  --project-meta-color: rgba(242, 240, 234, 0.7);
-  --project-dot-color: rgba(242, 240, 234, 0.5);
-  --project-hover-color: #354F52;
-  --project-image-overlay: rgba(0, 0, 0, 0.15);
-}
-
-:global([data-theme="light"]) {
-  --project-border-color: rgba(15, 23, 42, 0.15);
-  --project-title-color: var(--theme-text-strong);
-  --project-meta-color: var(--theme-text-muted);
-  --project-dot-color: var(--theme-text-soft);
-  --project-hover-color: #18969E;
-  --project-image-overlay: rgba(255, 255, 255, 0.1);
-}
-
-:root {
-  --project-border-color: rgba(255, 255, 255, 0.15);
-  --project-title-color: var(--theme-text-strong);
-  --project-meta-color: var(--theme-text-muted);
-  --project-dot-color: var(--theme-text-soft);
-  --project-hover-color: #9c6a4b;
-}
-
-@media (max-width: 1024px) {
-  .project-image-preview {
-    width: 260px;
-    height: 210px;
-  }
-}
-
-@media (max-width: 768px) {
-  .projects-section {
-    padding: 1rem 1rem 3rem;
-  }
-
-  .project-mobile-image {
-    display: block;
-    margin-bottom: 0.75rem;
-  }
-
-  .project-mobile-image img {
-    aspect-ratio: 16 / 9;
-    max-height: 220px;
-  }
-
-  .project-item {
-    gap: 0;
-    padding: 0;
-    margin-top: 0;
-    margin-bottom: 2.5rem;
-    border-bottom: none;
-  }
-
-  .project-item-first {
-    margin-top: 0;
-  }
-
-  .project-item:last-child {
-    margin-bottom: 1.5rem;
-  }
-
-  .project-index {
-    display: none;
-  }
-
-  .project-index-mobile {
-    display: inline-block;
-    transform: translateY(-0.9em);
-  }
-
-  .project-tags {
-    gap: 0.75rem;
-    padding-left: 2rem;
-  }
-
-  .project-image-preview {
-    display: none;
-  }
-
-  .project-item:hover .project-title-anim {
-    background-size: 0% 100%;
-  }
-
-  .project-title-anim {
-    transition: none;
-  }
-
-  .projects-divider {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  .project-item {
-    margin-bottom: 2rem;
-  }
-
-  .project-mobile-image {
-    margin-bottom: 0.5rem;
-  }
+:global([data-theme="light"]) .action-btn {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--theme-text-muted);
 }
 </style>
-
-
-
-

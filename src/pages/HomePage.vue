@@ -5,17 +5,19 @@
     <About />
     <Skills />
     <Statement />
-    <div id="projects-anchor" class="projects-anchor" aria-hidden="true"></div>
     <Projects />
     <Hackathon />
     <Certificates />
+    <Achievements />
     <Contact />
     <Footer />
+    <BackToTop />
+    <ResumeModal :visible="showResume" @close="showResume = false" />
   </main>
 </template>
 
 <script setup>
-import { nextTick, onMounted, watch } from "vue";
+import { nextTick, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import Home from "@/sections/Home.vue";
 import Impact from "@/sections/Impact.vue";
@@ -25,11 +27,15 @@ import Statement from "@/sections/Statement.vue";
 import Projects from "@/sections/Projects.vue";
 import Hackathon from "@/sections/Hackathon.vue";
 import Certificates from "@/sections/Certificates.vue";
+import Achievements from "@/sections/Achievements.vue";
 import Contact from "@/sections/Contact.vue";
 import Footer from "@/components/Footer.vue";
+import BackToTop from "@/components/BackToTop.vue";
+import ResumeModal from "@/components/ResumeModal.vue";
 
 const route = useRoute();
 const router = useRouter();
+const showResume = ref(false);
 
 const scrollToRouteTarget = () => {
   const hashTarget = route.hash && route.hash.length > 1 ? route.hash : null;
@@ -70,10 +76,3 @@ watch(
   }
 );
 </script>
-
-<style scoped>
-.projects-anchor {
-  height: 1px;
-  scroll-margin-top: clamp(16vh, 22vh, 28vh);
-}
-</style>
