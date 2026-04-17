@@ -1,0 +1,119 @@
+{
+  "nav": {
+    "about": "About",
+    "impact": "Impact",
+    "skills": "Skills",
+    "projects": "Projects",
+    "hackathon": "Hackathon",
+    "certificates": "Certificates",
+    "contact": "Contact",
+    "home": "Home",
+    "resume": "Resume",
+    "resumeEnglish": "English",
+    "resumeJapanese": "Hindi"
+  },
+  "home": {
+    "scrollDown": "SCROLL DOWN",
+    "words": ["Engineer", "Designer", "Builder", "FullStack", "MERN", "Creative", "Crafting", "Focused"],
+    "tagline": "Building scalable, modern and user-centric web applications",
+    "cta": "Let's connect",
+    "exploreCta": "Let's connect",
+    "role": "Full Stack Developer",
+    "subtitle": "Crafting performant and user-friendly digital solutions",
+    "location": "Greater Indore Area・MERN・Tailwind"
+  },
+  "impact": {
+    "quote": "I specialize in developing end-to-end applications using the MERN stack, focusing on clean, efficient, and maintainable code."
+  },
+  "about": {
+    "title": "About me",
+    "paragraph1": "I'm VIJAY, a B.Tech Computer Science student and an aspiring Full Stack Developer passionate about building real-world web applications and delivering seamless user experiences.",
+    "paragraph2": "I specialize in developing end-to-end applications using the MERN stack and continuously focus on writing clean, efficient, and maintainable code. My goal is to create applications that are not only visually appealing but also performant and user-friendly."
+  },
+  "skills": {
+    "title": "Skills",
+    "bgText": "SKILLS",
+    "taglineStatic": "I constantly try to",
+    "taglineWords": ["Improve", "Learn", "Adapt", "Grow"]
+  },
+  "statement": {
+    "dividerText": "Each project shaped",
+    "dividerText2": "how I work today.",
+    "selected": "SELECTED",
+    "projects": "PROJECTS",
+    "showcase": "SHOWCASE"
+  },
+  "contact": {
+    "title": "Conversation comes first",
+    "subtitle": "That's often where good things begin.",
+    "formTitle": "Open to opportunities",
+    "nameLabel": "Name",
+    "namePlaceholder": "How should I call you?",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Where can I reach you?",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Anything you'd like to discuss?",
+    "errors": {
+      "nameRequired": "Please enter your name",
+      "emailInvalid": "Please enter a valid email address",
+      "messageRequired": "Please enter your message."
+    },
+    "warnings": {
+      "emailDomainTypo": "Did you mean {domain}?"
+    },
+    "requiredFieldMessage": "Please fill out this field.",
+    "send": "Send",
+    "sendLoading": "Sending...",
+    "successTitle": "Thanks for getting in touch.",
+    "successMessage": "I've received your message and will follow up soon."
+  },
+  "footer": {
+    "github": "GITHUB",
+    "linkedin": "LINKEDIN",
+    "inquiry": "INQUIRY",
+    "location": "INDORE, INDIA (GMT+5:30)",
+    "tagline": "DESIGNING WITH CODE",
+    "rights": "All Rights Reserved.",
+    "name": "VIJAY"
+  },
+  "projects": {
+    "fixitnow": "FixItNow",
+    "fixitnowSubtitle": "A full-stack local repair service booking platform connecting users with expert technicians for electronic and home appliance repairs.",
+    "aiHackathon": "Art Park AI Build",
+    "aiHackathonSubtitle": "A intensive 48-hour hackathon project focused on building AI-driven solutions for real-world urban challenges."
+  },
+  "projectDetail": {
+    "back": "Back",
+    "status": "In Planning & Development",
+    "title": "JLPT Study Project",
+    "sections": {
+      "overview": {
+        "title": "Project Overview",
+        "p1": "This project started from my own experience studying for and taking the JLPT N2.",
+        "p2": "While studying, I realized that memorizing grammar and kanji in isolation has its limits. No matter how much you memorize, without actually solving real JLPT questions, it's hard to see how grammar is used and how it's tested. There's so much you can only truly understand by encountering grammar within question passages and answer choices.",
+        "p3": "At the same time, going through full past exams every time isn't realistic either. With so many questions and the time they require, you can get exhausted before even starting to review. Especially when studying alongside work and daily life, long practice sessions can become stressful and lead to anxiety and tension.",
+        "p4": "These struggles inspired me to start this project."
+      },
+      "coreIdea": {
+        "title": "Core Concept",
+        "p1": "At the heart of this project is the idea of learning and deepening understanding through past JLPT questions.",
+        "p2": "Rather than repeatedly solving full exam papers, the goal is to break past questions into small, manageable practice units where each question can be reviewed carefully. For each question, the platform clearly explains which grammar pattern is being used, why the correct answer is correct, and why the other options are wrong. The emphasis is on naturally understanding grammar patterns through problem-solving, rather than relying on memorization."
+      },
+      "userFriendly": {
+        "title": "Designed with Usability in Mind",
+        "p1": "This project is designed based on my own struggles and difficulties during studying.",
+        "p2": "The layout is kept simple and easy to read, so learners can study calmly without unnecessary anxiety or stress. The aim is to create a comfortable learning experience where you can think, \"Let me just practice a little today,\" without feeling overwhelmed."
+      },
+      "status": {
+        "title": "Current Development Status",
+        "p1": "This project is currently in its early stages of development.",
+        "p2": "While planning the overall site structure and practice flow, UI design is being refined in Figma. The current focus is on building a solid, practical practice experience using past JLPT questions."
+      },
+      "purpose": {
+        "title": "Project Purpose",
+        "p1": "This project aims to help JLPT learners understand how questions are constructed and face the exam with confidence. Reducing anxiety, learning with understanding, and approaching the real test calmly. That's the goal of this practical review platform."
+      }
+    }
+  }
+}
+
