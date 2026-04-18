@@ -86,10 +86,23 @@ onMounted(() => {
   document.addEventListener('mouseleave', onMouseLeave);
 
   const addHoverListeners = () => {
-    const targets = document.querySelectorAll('a, button, [role="button"], input, textarea, .cursor-pointer');
+    const targets = document.querySelectorAll('a, button, [role="button"], input:not(.ui-switch input), textarea, .cursor-pointer');
     targets.forEach(target => {
+      // Skip elements inside the theme toggle
+      if (target.closest('.ui-switch') || target.closest('.slider')) return;
       target.addEventListener('mouseenter', onHoverStart);
       target.addEventListener('mouseleave', onHoverEnd);
+    });
+
+    // Hide cursor entirely when hovering the theme toggle
+    const toggles = document.querySelectorAll('.ui-switch');
+    toggles.forEach(toggle => {
+      toggle.addEventListener('mouseenter', () => {
+        gsap.to([cursorPointer.value, cursorRing.value], { opacity: 0, duration: 0.2 });
+      });
+      toggle.addEventListener('mouseleave', () => {
+        gsap.to([cursorPointer.value, cursorRing.value], { opacity: 1, duration: 0.2 });
+      });
     });
   };
 
@@ -180,6 +193,11 @@ onMounted(() => {
 @media (pointer: fine) {
   :global(body), :global(a), :global(button), :global(.cursor-pointer) {
     cursor: none !important;
+  }
+
+  :global(.ui-switch),
+  :global(.ui-switch *) {
+    cursor: pointer !important;
   }
 }
 </style>
