@@ -142,7 +142,7 @@ const socials = [
   { name: 'LinkedIn', url: 'https://linkedin.com/in/vijay-diwaniya-7b36aa3a4', icon: 'bi bi-linkedin' },
   { name: 'LeetCode', url: 'https://leetcode.com/u/VIJAY162004', icon: 'bi bi-code-slash' },
   { name: 'Twitter', url: 'https://x.com/VIJAY162004', icon: 'bi bi-twitter-x' },
-  { name: 'YouTube', url: '#', icon: 'bi bi-youtube' }, // TODO: Add your YouTube channel URL
+  { name: 'YouTube', url: 'https://www.youtube.com/@VIJAYDIWANIYA-16', icon: 'bi bi-youtube' },
   { name: 'Sololearn', url: 'https://sololearn.com/en/profile/35629242', icon: 'bi bi-book' },
 ];
 
