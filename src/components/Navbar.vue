@@ -20,7 +20,7 @@
             <img 
               :src="isDark ? LogoDark : LogoLight" 
               alt="VIJAY Logo" 
-              class="h-8 w-auto object-contain"
+              class="h-10 w-10 object-contain rounded-full"
               :class="isDark ? 'logo-dark' : 'logo-light'"
             />
           </div>
@@ -789,7 +789,7 @@ onBeforeUnmount(() => {
 
 .logo-dark, .logo-light {
   transition: transform 0.3s ease;
-  max-width: 200px;
+  max-width: 44px;
 }
 
 .menu-circle-bg {
