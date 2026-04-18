@@ -27,13 +27,13 @@
 
           <!-- Desktop nav -->
           <div v-if="!isProjectPage" class="hidden lg:block lg:justify-self-center">
-            <ul class="flex items-center gap-x-8 font-semibold text-[15px] lg:text-[16px]">
+            <ul class="flex items-center gap-x-5 font-semibold text-[14px] lg:text-[15px]">
               <li
                 v-for="item in sections"
                 :key="item.id"
                 class="group"
               >
-                <button class="nav-link text-[16.5px] lg:text-[17.5px] tracking-wide font-semibold hover:text-[color:var(--theme-text-hover)] transition-colors cursor-pointer" @click="scrollToSection(item.targetId ?? item.id)">
+                <button class="nav-link text-[14px] lg:text-[15px] tracking-wide font-semibold hover:text-[color:var(--theme-text-hover)] transition-colors cursor-pointer" @click="scrollToSection(item.targetId ?? item.id)">
                   {{ item.label }}
                 </button>
                 <span class="nav-underline mt-1 block h-[2.5px] w-0 bg-[color:var(--theme-text-strong)] transition-all duration-300 group-hover:w-full"></span>
@@ -43,37 +43,7 @@
 
           <!-- Desktop resume + mobile toggle -->
           <div class="ml-auto flex items-center gap-3 lg:ml-0 lg:justify-self-end">
-            <!-- Language Switcher -->
-            <button
-              class="lang-switcher hidden lg:inline-flex items-center mr-3"
-              :class="isJa ? 'is-ja' : ''"
-              type="button"
-              aria-label="Switch language"
-              :aria-pressed="isJa"
-              @click="toggleLocale"
-              v-if="!isProjectPage"
-            >
-              <span class="lang-roll">
-                <span class="lang-roll-track">
-                  <span class="lang-roll-item">
-                    <svg class="lang-globe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="10"/>
-                      <path d="M2 12h20"/>
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                    <span class="lang-text">EN</span>
-                  </span>
-                  <span class="lang-roll-item">
-                    <svg class="lang-globe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="10"/>
-                      <path d="M2 12h20"/>
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                    </svg>
-                    <span class="lang-text">JA</span>
-                  </span>
-                </span>
-              </span>
-            </button>
+            <!-- Language Switcher removed — English-only portfolio -->
 
             <!-- Desktop Resume -->
             <label v-if="!isProjectPage" class="ui-switch hidden lg:inline-flex mr-5 desktop-switch">
