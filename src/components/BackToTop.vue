@@ -40,7 +40,7 @@ onBeforeUnmount(() => {
 .back-to-top {
   position: fixed;
   bottom: 2rem;
-  right: 2rem;
+  left: 2rem;
   z-index: 90;
   width: 48px;
   height: 48px;
