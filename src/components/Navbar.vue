@@ -53,82 +53,28 @@
               </div>
             </label>
 
-            <!-- Desktop Resume Dropdown -->
+            <!-- Desktop Resume Button -->
             <div
               v-if="!isProjectPage"
-              class="resume-dropdown hidden lg:block relative"
-              ref="desktopResumeDropdown"
-              @mouseenter="setResumeHover(true)"
-              @mouseleave="setResumeHover(false)"
-              @focusin="openResumeDropdown"
-              @focusout="closeResumeDropdown"
+              class="resume-button hidden lg:block relative"
             >
               <button
                 type="button"
-                class="group relative px-4 py-2 font-medium"
-                :class="{ 'is-open': isResumeDropdownActive }"
-                @keydown.escape="closeResumeDropdown"
-                aria-haspopup="true"
-                :aria-expanded="isResumeDropdownActive"
+                class="group relative px-4 py-2 font-medium cursor-pointer"
+                @click.prevent="openResume(resumeLinks.en)"
               >
                 <span
-                  class="absolute inset-0 h-full w-full translate-x-1 translate-y-1 bg-[color:var(--theme-resume-border)] transition duration-200 ease-out"
-                  :class="isResumeDropdownActive ? 'translate-x-0 translate-y-0' : 'group-hover:translate-x-0 group-hover:translate-y-0'"
+                  class="absolute inset-0 h-full w-full translate-x-1 translate-y-1 bg-[color:var(--theme-resume-border)] transition duration-200 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
                 ></span>
                 <span
-                  class="absolute inset-0 h-full w-full border-2 border-[color:var(--theme-resume-border)] bg-[color:var(--theme-resume-bg)] transition-colors duration-200"
-                  :class="isResumeDropdownActive ? 'bg-[color:var(--theme-resume-hover-bg)]' : 'group-hover:bg-[color:var(--theme-resume-hover-bg)]'"
+                  class="absolute inset-0 h-full w-full border-2 border-[color:var(--theme-resume-border)] bg-[color:var(--theme-resume-bg)] transition-colors duration-200 group-hover:bg-[color:var(--theme-resume-hover-bg)]"
                 ></span>
                 <span
-                  class="relative flex items-center gap-x-3 transition-colors duration-200"
-                  :class="isResumeDropdownActive ? 'text-[color:var(--theme-resume-hover-text)]' : 'text-[color:var(--theme-resume-text)] group-hover:text-[color:var(--theme-resume-hover-text)]'"
+                  class="relative flex items-center gap-x-3 transition-colors duration-200 text-[color:var(--theme-resume-text)] group-hover:text-[color:var(--theme-resume-hover-text)]"
                 >
                   <span class="resume-label">{{ t('nav.resume') }}</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-4 w-4 transition-transform duration-200"
-                    :class="{ 'rotate-180': isResumeDropdownActive }"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  >
-                    <path d="M6 9l6 6 6-6" />
-                  </svg>
                 </span>
               </button>
-              <!-- Dropdown Menu -->
-              <div
-                class="resume-dropdown-menu absolute top-full left-0 w-full mt-1 overflow-hidden"
-                :class="isResumeDropdownActive ? 'is-visible' : ''"
-              >
-                <div class="resume-dropdown-content">
-                  <a
-                    :href="resumeLinks.en"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="resume-dropdown-item group"
-                    @click.prevent="openResume(resumeLinks.en)"
-                    @keydown.escape="closeResumeDropdown"
-                  >
-                    <span class="resume-dropdown-item-bg"></span>
-                    <span class="resume-dropdown-item-text">{{ t('nav.resumeEnglish') }}</span>
-                  </a>
-                  <a
-                    :href="resumeLinks.ja"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="resume-dropdown-item group"
-                    @click.prevent="openResume(resumeLinks.ja)"
-                    @keydown.escape="closeResumeDropdown"
-                  >
-                    <span class="resume-dropdown-item-bg"></span>
-                    <span class="resume-dropdown-item-text">{{ t('nav.resumeJapanese') }}</span>
-                  </a>
-                </div>
-              </div>
             </div>
 
             <!-- Mobile menu toggle - Lottie Hamburger -->
@@ -212,7 +158,7 @@
           </button>
         </li>
 
-        <!-- Mobile Resume Dropdown in Menu -->
+        <!-- Mobile Resume Button in Menu -->
         <li
           class="menu-item-animate mt-6"
           :class="[
@@ -222,69 +168,24 @@
             transitionDelay: isOpen ? `${200 + (mobileSections.length * 60)}ms` : '0ms'
           }"
         >
-          <div class="resume-dropdown-mobile" ref="mobileResumeDropdown">
+          <div class="resume-button-mobile">
             <button
               type="button"
-              class="group resume-link relative inline-block px-6 py-3 font-medium transition-transform duration-200"
-              :class="{ 'is-open': isMobileResumeDropdownOpen }"
-              @click="toggleMobileResumeDropdown"
-              aria-haspopup="true"
-              :aria-expanded="isMobileResumeDropdownOpen"
+              class="group resume-link relative inline-block px-6 py-3 font-medium transition-transform duration-200 cursor-pointer"
+              @click.prevent="openResume(resumeLinks.en, true)"
             >
               <span
-                class="absolute inset-0 h-full w-full resume-layer resume-layer-shadow translate-x-1 translate-y-1 bg-[color:var(--theme-resume-border)] transition duration-200 ease-out"
-                :class="isMobileResumeDropdownOpen ? 'translate-x-0 translate-y-0' : 'group-hover:translate-x-0 group-hover:translate-y-0'"
+                class="absolute inset-0 h-full w-full resume-layer resume-layer-shadow translate-x-1 translate-y-1 bg-[color:var(--theme-resume-border)] transition duration-200 ease-out group-hover:translate-x-0 group-hover:translate-y-0"
               ></span>
               <span
-                class="absolute inset-0 h-full w-full resume-layer resume-layer-base border-2 border-[color:var(--theme-resume-border)] bg-[color:var(--theme-resume-bg)] transition-colors duration-200"
-                :class="isMobileResumeDropdownOpen ? 'bg-[color:var(--theme-resume-hover-bg)]' : 'group-hover:bg-[color:var(--theme-resume-hover-bg)]'"
+                class="absolute inset-0 h-full w-full resume-layer resume-layer-base border-2 border-[color:var(--theme-resume-border)] bg-[color:var(--theme-resume-bg)] transition-colors duration-200 group-hover:bg-[color:var(--theme-resume-hover-bg)]"
               ></span>
               <span
-                class="relative flex items-center gap-x-3 transition-colors duration-200"
-                :class="isMobileResumeDropdownOpen ? 'text-[color:var(--theme-resume-hover-text)]' : 'text-[color:var(--theme-resume-text)] group-hover:text-[color:var(--theme-resume-hover-text)]'"
+                class="relative flex items-center gap-x-3 transition-colors duration-200 text-[color:var(--theme-resume-text)] group-hover:text-[color:var(--theme-resume-hover-text)]"
               >
                 <span class="resume-label">{{ t('nav.resume') }}</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-4 w-4 transition-transform duration-200"
-                  :class="{ 'rotate-180': isMobileResumeDropdownOpen }"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
               </span>
             </button>
-            <!-- Mobile Dropdown Menu -->
-            <div
-              class="resume-dropdown-menu-mobile mt-3"
-              :class="isMobileResumeDropdownOpen ? 'is-visible' : ''"
-            >
-              <div class="flex flex-col gap-2">
-                <a
-                  :href="resumeLinks.en"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="resume-dropdown-item-mobile"
-                  @click.prevent="openResume(resumeLinks.en, true)"
-                >
-                  {{ t('nav.resumeEnglish') }}
-                </a>
-                <a
-                  :href="resumeLinks.ja"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="resume-dropdown-item-mobile"
-                  @click.prevent="openResume(resumeLinks.ja, true)"
-                >
-                  {{ t('nav.resumeJapanese') }}
-                </a>
-              </div>
-            </div>
           </div>
         </li>
 
@@ -363,8 +264,8 @@ const desktopResumeDropdown = ref(null);
 const mobileResumeDropdown = ref(null);
 
 const resumeLinks = {
-  en: '/resume/resume-en.pdf',
-  ja: '/resume/resume-ja.pdf',
+  en: 'https://drive.google.com/file/d/18WZHGUp6CDj3EPlPEEEXycE0CAnm-oCq/view?usp=sharing',
+  ja: 'https://drive.google.com/file/d/18WZHGUp6CDj3EPlPEEEXycE0CAnm-oCq/view?usp=sharing',
 };
 
 const sections = computed(() => [

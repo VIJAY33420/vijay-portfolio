@@ -110,6 +110,8 @@
 <script setup>
 import { ref, computed } from 'vue';
 import progress1Img from '@/assets/progress1.jpg';
+import fixitproImg from '@/assets/fixitpro.png';
+import fixitnowImg from '@/assets/fixitnow.png';
 
 const activeTab = ref('all');
 
@@ -124,74 +126,26 @@ const tabs = [
 const projects = [
   {
     id: 1,
-    title: 'FixItNow',
+    title: 'FixitPro',
     category: 'Full Stack',
     filterKey: 'fullstack',
-    description: 'A full-stack local repair service booking platform connecting users with expert technicians for electronic and home appliance repairs. Built with MERN stack.',
-    tags: ['React', 'Node.js', 'MongoDB', 'Express', 'Tailwind'],
-    image: progress1Img,
-    github: 'https://github.com/VIJAY33420',
-    demo: '#', // TODO: Add your live demo URL
-    youtube: '', // TODO: Add YouTube demo URL if available
+    description: 'Full-stack web platform connecting users with verified technicians for appliance repair. Features real-time repair tracking, transparent pricing, warranty, and genuine spare parts.',
+    tags: ['React.js', 'Node.js', 'MongoDB', 'Express.js', 'TailwindCSS'],
+    image: fixitproImg,
+    github: 'https://github.com/VIJAY33420/fixitPro',
+    demo: 'https://fixit-pro-mocha.vercel.app',
+    youtube: '',
   },
   {
     id: 2,
-    title: 'Art Park AI Build',
+    title: 'FixitNow',
     category: 'Full Stack',
     filterKey: 'fullstack',
-    description: 'An intensive 48-hour hackathon project focused on building AI-driven solutions for real-world urban challenges at IISc Bangalore.',
-    tags: ['React', 'Node.js', 'AI/ML', 'MongoDB'],
-    image: progress1Img,
-    github: 'https://github.com/VIJAY33420',
-    demo: '',
-    youtube: '',
-  },
-  {
-    id: 3,
-    title: 'Portfolio Website',
-    category: 'Frontend',
-    filterKey: 'frontend',
-    description: 'A premium personal portfolio built with Vue 3, Tailwind CSS, and GSAP featuring glassmorphic design, dark/light theme, and smooth scroll animations.',
-    tags: ['Vue 3', 'Tailwind', 'GSAP', 'Vite'],
-    image: progress1Img,
-    github: 'https://github.com/VIJAY33420/vijay-portfolio',
-    demo: 'https://vijaydiwaniya-portfolio.vercel.app/',
-    youtube: '',
-  },
-  {
-    id: 4,
-    title: 'Netflix Clone',
-    category: 'Clones',
-    filterKey: 'clones',
-    description: 'A pixel-perfect Netflix UI clone featuring responsive design, dynamic content sections, and smooth hover animations.',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    image: progress1Img,
-    github: 'https://github.com/VIJAY33420', // TODO: Update with actual repo
-    demo: '', // TODO: Add live demo URL
-    youtube: '',
-  },
-  {
-    id: 5,
-    title: 'Tic-Tac-Toe',
-    category: 'Games',
-    filterKey: 'games',
-    description: 'An interactive Tic-Tac-Toe game with clean UI, win detection logic, score tracking, and responsive design.',
-    tags: ['HTML', 'CSS', 'JavaScript'],
-    image: progress1Img,
-    github: 'https://github.com/VIJAY33420', // TODO: Update with actual repo
-    demo: '', // TODO: Add live demo URL
-    youtube: '',
-  },
-  {
-    id: 6,
-    title: 'Weather App',
-    category: 'Frontend',
-    filterKey: 'frontend',
-    description: 'A real-time weather application fetching live data from OpenWeatherMap API with beautiful UI and location search.',
-    tags: ['React', 'API', 'CSS', 'Axios'],
-    image: progress1Img,
-    github: 'https://github.com/VIJAY33420', // TODO: Update with actual repo
-    demo: '', // TODO: Add live demo URL
+    description: 'Location-based repair booking platform connecting users with nearby technicians for phones, laptops, ACs, and home appliances. Includes estimated cost preview and real-time job tracking.',
+    tags: ['React.js', 'Node.js', 'MongoDB', 'Express.js', 'TailwindCSS'],
+    image: fixitnowImg,
+    github: 'https://github.com/VIJAY33420/fixitnow',
+    demo: 'https://fixitnow-frontend-8l7s.vercel.app/welcome',
     youtube: '',
   },
 ];

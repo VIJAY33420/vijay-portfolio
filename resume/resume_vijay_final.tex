@@ -1,0 +1,216 @@
+%-------------------------
+% Resume - Two Column (Swaraj style)
+% Author: Vijay Diwaniya
+% Compiler: pdfLaTeX
+%-------------------------
+
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage{paracol}
+\usepackage{geometry}
+\input{glyphtounicode}
+
+\geometry{top=0.4in, bottom=0.4in, left=0.5in, right=0.5in}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\urlstyle{same}
+\raggedbottom
+\setlength{\tabcolsep}{0in}
+\pdfgentounicode=1
+
+%--- Section formatting ---%
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\normalsize\bfseries
+}{}{0em}{}[\color{black}\titlerule\vspace{-4pt}]
+
+%--- Custom commands ---%
+\newcommand{\resumeItem}[1]{
+  \item\small{#1\vspace{-2pt}}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+  \item
+  \begin{tabular*}{\linewidth}{l@{\extracolsep{\fill}}r}
+    \small\textbf{#1} & \small #2 \\
+  \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{\linewidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & \small #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-6pt}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0pt, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=10pt]\vspace{-2pt}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-4pt}}
+
+%============================================================
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+  {\Huge\scshape\textbf{Vijay Diwaniya}}\\[4pt]
+  \small
+  +91 7869436062 \quad\textbar\quad
+  \href{mailto:vijay.diwaniya.cg@gmail.com}{\faEnvelope\ vijay.diwaniya.cg@gmail.com} \quad\textbar\quad
+  \faMapMarker*\ Dewas, Madhya Pradesh, India \\[4pt]
+  \href{https://www.linkedin.com/in/vijay-diwaniya-7b36aa3a4/}{\faLinkedin\ LinkedIn} \quad
+  \href{https://github.com/VIJAY33420}{\faGithub\ GitHub} \quad
+  \href{https://leetcode.com/u/VIJAY162004/}{\faCode\ LeetCode} \quad
+  \href{https://www.youtube.com/@VIJAYDIWANIYA-16}{\faYoutube\ YouTube} \quad
+  \href{https://vijaydiwaniya-portfolio.vercel.app/}{\faGlobe\ Portfolio}
+\end{center}
+
+\vspace{2pt}
+\noindent\rule{\textwidth}{0.4pt}
+\vspace{4pt}
+
+%----------TWO COLUMN BODY----------
+\setlength{\columnsep}{20pt}
+\columnratio{0.44}
+\begin{paracol}{2}
+
+%============================================================
+%  LEFT COLUMN
+%============================================================
+
+%----- Professional Summary -----%
+\section{Professional Summary}
+\small{Full Stack Developer and UI/UX Designer with hands-on experience in React.js, Node.js, MongoDB, and modern JavaScript (ES6+). Computer Engineering student with strong foundations in data structures, algorithms, and building responsive full-stack web applications.}
+
+\vspace{4pt}
+
+%----- Technical Skills -----%
+\section{Technical Skills}
+\begin{itemize}[leftmargin=0pt, label={}, itemsep=1pt]
+  \small{
+    \item \textbf{Languages:} C, C++, Python, JavaScript (ES6+)
+    \item \textbf{Frontend:} React.js, HTML5, CSS3, TailwindCSS, Responsive Web Design
+    \item \textbf{Backend \& DB:} Node.js, Express.js, MongoDB, RESTful APIs
+    \item \textbf{UI/UX:} Figma, Wireframing, Prototyping, User Journey Mapping
+    \item \textbf{Tools:} Git, GitHub, Vite, Vercel, Postman
+    \item \textbf{CS Fundamentals:} DSA, DBMS, OOPS, Web Technologies
+  }
+\end{itemize}
+
+\vspace{4pt}
+
+%----- Core Competencies -----%
+\section{Core Competencies}
+\begin{itemize}[leftmargin=0pt, label={}, itemsep=1pt]
+  \small{
+    \item \textbf{Software Engineering:} Full-stack development, component-based architecture, RESTful API design, clean code principles
+    \item \textbf{Problem Solving:} Algorithmic reasoning, debugging, optimizing data flow
+    \item \textbf{Design Thinking:} User-centered design, rapid prototyping, iterative UX
+    \item \textbf{Collaboration:} Cross-functional communication, Git workflows, documentation
+  }
+\end{itemize}
+
+\vspace{4pt}
+
+%----- Education -----%
+\section{Education}
+\resumeSubHeadingListStart
+  \resumeSubheading
+    {Swaminarayan University}{2025 -- Present}
+    {BE in CE \quad Kalol, Gandhinagar, Gujarat}{}
+  \resumeSubheading
+    {Vidhya Shree Public School}{Completed}
+    {Dewas, Madhya Pradesh}{}
+\resumeSubHeadingListEnd
+
+\vspace{4pt}
+
+%----- Certifications -----%
+\section{Certifications}
+\resumeSubHeadingListStart
+  \resumeProjectHeading
+    {IISc Certificate}{\href{https://vijaydiwaniya-portfolio.vercel.app/certs/cert-iisc.jpg}{\faExternalLinkAlt\ View}}
+  \resumeItemListStart
+    \resumeItem{Certification from Indian Institute of Science}
+  \resumeItemListEnd
+  \resumeProjectHeading
+    {IIT Jammu Certificate}{\href{https://vijaydiwaniya-portfolio.vercel.app/certs/cert-iitjammu.jpg}{\faExternalLinkAlt\ View}}
+  \resumeItemListStart
+    \resumeItem{Certification from IIT Jammu}
+  \resumeItemListEnd
+\resumeSubHeadingListEnd
+
+%============================================================
+%  RIGHT COLUMN
+%============================================================
+\switchcolumn
+
+%----- Projects -----%
+\section{Projects}
+\resumeSubHeadingListStart
+
+  \resumeProjectHeading
+    {FixitPro -- Smart Appliance Repair Platform}{%
+      \href{https://github.com/VIJAY33420/fixitPro}{\faGithub\ Code}\quad
+      \href{https://fixit-pro-mocha.vercel.app}{\faExternalLinkAlt\ Live Demo}}
+  \resumeItemListStart
+    \resumeItem{Full-stack web platform connecting users with verified technicians for appliance repair (washing machines, fridges, microwaves)}
+    \resumeItem{Features real-time repair tracking, transparent pricing, warranty on repairs, and genuine spare parts guarantee}
+    \resumeItem{Built with React.js, TailwindCSS, Node.js, Express.js, and MongoDB; deployed on Vercel}
+  \resumeItemListEnd
+
+  \resumeProjectHeading
+    {FixitNow -- Local Repair Service Booking}{%
+      \href{https://github.com/VIJAY33420/fixitnow}{\faGithub\ Code}\quad
+      \href{https://fixitnow-frontend-8l7s.vercel.app/welcome}{\faExternalLinkAlt\ Live Demo}}
+  \resumeItemListStart
+    \resumeItem{Location-based repair booking platform connecting users with nearby technicians for phones, laptops, ACs, and home appliances}
+    \resumeItem{Includes estimated cost preview, image upload for device damage, real-time job tracking, and technician rating system}
+    \resumeItem{Built with React.js, TailwindCSS, Node.js, Express.js, and MongoDB; deployed on Vercel}
+  \resumeItemListEnd
+
+  \resumeProjectHeading
+    {Web Project 1}{%
+      \href{https://github.com/VIJAY33420/WEB/tree/main/WEB\%20copy/web-1}{\faGithub\ Code}}
+  \resumeItemListStart
+    \resumeItem{Responsive web project built with modern HTML, CSS, and JavaScript}
+    \resumeItem{Focused on clean UI design, semantic structure, and cross-browser compatibility}
+  \resumeItemListEnd
+
+  \resumeProjectHeading
+    {Web Project 2}{%
+      \href{https://github.com/VIJAY33420/WEB/tree/main/WEB\%20copy/web-2}{\faGithub\ Code}}
+  \resumeItemListStart
+    \resumeItem{Responsive web project built with modern HTML, CSS, and JavaScript}
+    \resumeItem{Emphasis on layout design, visual hierarchy, and responsive behavior across devices}
+  \resumeItemListEnd
+
+  \resumeProjectHeading
+    {Web Project 3}{%
+      \href{https://github.com/VIJAY33420/WEB/tree/main/WEB\%20copy/web-3}{\faGithub\ Code}}
+  \resumeItemListStart
+    \resumeItem{Responsive web project built with modern HTML, CSS, and JavaScript}
+    \resumeItem{Demonstrates front-end development skills with focus on interactivity and clean design}
+  \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+\end{paracol}
+
+\end{document}
